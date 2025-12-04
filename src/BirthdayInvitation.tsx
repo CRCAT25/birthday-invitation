@@ -14,12 +14,14 @@ interface BirthdayInfo {
     location: string;
     address: string;
     message: string;
+    promise: string;
 }
 
 export default function BirthdayInvitation() {
     const [showContent, setShowContent] = useState<boolean>(false);
     const [hearts, setHearts] = useState<HeartAnimation[]>([]);
     const [playMusic, setPlayMusic] = useState<boolean>(false);
+    const [showThankYou, setShowThankYou] = useState<boolean>(false);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -36,12 +38,20 @@ export default function BirthdayInvitation() {
     }, []);
 
     const birthdayInfo: BirthdayInfo = {
-        name: "Em Yêu",
-        date: "15 tháng 12, 2024",
-        time: "19:00",
-        location: "Nhà hàng The Garden",
-        address: "123 Đường Lê Lợi, Quận 1, TP.HCM",
-        message: "Một năm nữa lại đến, một năm nữa em lại thêm xinh đẹp và đáng yêu hơn. Anh muốn được ở bên em trong ngày đặc biệt này và mang đến những kỷ niệm tuyệt vời nhất!"
+        name: "Cục Dàng",
+        date: "Đêm 7/12/2025 rạng sáng 8/12/2025",
+        time: "23:00",
+        location: "Nhà hàng Hadilao",
+        address: "Đường Phạm Văn Đồng, Hiệp Bình Chánh, Thủ Đức, Thành phố Hồ Chí Minh",
+        message: "Một năm nữa lại đến, một năm nữa em lại thêm xinh đẹp và đáng yêu hơn. Anh muốn được ở bên em trong dịp đặc biệt này và mang đến cho em những kỷ niệm tuyệt vời nhất!",
+        promise: "Anh hứa sẽ đưa đón em cẩn thận, chăm sóc em chu đáo, và đảm bảo em sẽ có một ngày sinh nhật vui vẻ và đáng nhớ nhất. Em chỉ cần mang theo nụ cười xinh đẹp là đủ! 💝"
+    };
+
+    const handleConfirmAttendance = () => {
+        setShowThankYou(true);
+        setTimeout(() => {
+            setShowThankYou(false);
+        }, 3000);
     };
 
     return (
@@ -96,6 +106,16 @@ export default function BirthdayInvitation() {
             transform: scale(1.2) rotate(180deg);
           }
         }
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: scale(0.8);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
         .animate-float {
           animation: floatUp 6s ease-in-out forwards;
         }
@@ -105,7 +125,24 @@ export default function BirthdayInvitation() {
         .animate-sparkle {
           animation: sparkle 3s ease-in-out infinite;
         }
+        .animate-fadeIn {
+          animation: fadeIn 0.3s ease-out;
+        }
       `}</style>
+
+            {/* Thank You Popup */}
+            {showThankYou && (
+                <div className="fixed inset-0 flex items-center justify-center z-50 animate-fadeIn">
+                    <div className="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
+                    <div className="relative bg-gradient-to-br from-pink-500 to-purple-500 rounded-3xl p-16 shadow-2xl transform animate-fadeIn">
+                        <div className="text-center">
+                            <Heart className="w-20 h-20 text-white fill-current mx-auto mb-4 animate-pulse-slow" />
+                            <h2 className="text-5xl font-bold text-white mb-2">Anh cảm ưnnnn!</h2>
+                            <p className="text-xl text-white/90">Hẹn gặp em ngày hum đó ạaa 💕</p>
+                        </div>
+                    </div>
+                </div>
+            )}
 
             <div className="container mx-auto px-4 py-8 relative z-10">
                 {!showContent ? (
@@ -118,16 +155,16 @@ export default function BirthdayInvitation() {
                                 <Sparkles className="w-6 h-6 text-yellow-400 absolute -bottom-2 -left-2 animate-sparkle" style={{ animationDelay: '1s' }} />
                             </div>
                             <h1 className="text-4xl md:text-6xl font-bold text-pink-600 mb-4 animate-pulse-slow">
-                                Bạn Có Một Lời Mời Đặc Biệt! 🎉
+                                Em Có Một Lời Mời Đặc Biệt! 🎉
                             </h1>
                             <p className="text-xl text-gray-700 mb-8">
-                                Nhấn vào quà để mở nhé...
+                                Nhấn vào quà để mở nhé cục dàng...
                             </p>
                             <button
                                 onClick={() => setShowContent(true)}
                                 className="bg-gradient-to-r from-pink-500 to-purple-500 text-white px-12 py-4 rounded-full text-xl font-semibold hover:from-pink-600 hover:to-purple-600 transform hover:scale-110 transition-all duration-300 shadow-2xl"
                             >
-                                Mở Quà 🎁
+                                Mở 🎁
                             </button>
                         </div>
                     </div>
@@ -186,27 +223,55 @@ export default function BirthdayInvitation() {
                                         <p className="text-sm text-gray-500 mt-1">{birthdayInfo.address}</p>
                                     </div>
                                 </div>
+
+                                <div
+                                    style={{
+                                        display: 'flex',
+                                        alignItems: 'flex-start',
+                                        gap: '1rem',  // tương đương với gap-4
+                                        padding: '1rem',  // tương đương với p-4
+                                        backgroundColor: '#FFF2F2',  // tương đương với bg-rose-50
+                                        borderRadius: '1rem',  // tương đương với rounded-xl
+                                        border: '2px solid #fca5a5',  // tương đương với border-2 border-rose-200
+                                        transition: 'background-color 0.2s ease-in-out',  // tương đương với transition-colors
+                                    }}
+                                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#FFD5D5'}  // hover effect: bg-rose-100
+                                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#FFF2F2'}  // revert hover effect
+                                >
+                                    <Heart
+                                        style={{
+                                            width: '1.5rem',  // tương đương với w-6
+                                            height: '1.5rem',  // tương đương với h-6
+                                            color: '#f43f5e',  // tương đương với text-rose-500
+                                            flexShrink: 0,  // tương đương với flex-shrink-0
+                                            marginTop: '0.25rem',  // tương đương với mt-1
+                                            fill: 'currentColor',  // tương đương với fill-current
+                                            animation: 'pulse 1.5s ease-in-out infinite',  // tương đương với animate-pulse
+                                        }}
+                                    />
+                                    <div>
+                                        <p style={{ fontWeight: '600', color: '#2d3748' }}>Cam đoan</p>  {/* tương đương với font-semibold text-gray-800 */}
+                                        <p style={{ color: '#4a5568' }}>{birthdayInfo.promise}</p>  {/* tương đương với text-gray-600 */}
+                                    </div>
+                                </div>
+
                             </div>
 
                             {/* Action Buttons */}
-                            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                                <button className="bg-gradient-to-r from-green-500 to-emerald-500 text-white px-8 py-3 rounded-full font-semibold hover:from-green-600 hover:to-emerald-600 transform hover:scale-105 transition-all duration-300 shadow-lg flex items-center justify-center gap-2">
-                                    <Heart className="w-5 h-5 fill-current" />
-                                    Chắc chắn sẽ đến!
-                                </button>
+                            <div className="flex flex-col sm:flex-row-1 gap-4 justify-center">
                                 <button
-                                    onClick={() => setPlayMusic(!playMusic)}
-                                    className="bg-gradient-to-r from-pink-500 to-rose-500 text-white px-8 py-3 rounded-full font-semibold hover:from-pink-600 hover:to-rose-600 transform hover:scale-105 transition-all duration-300 shadow-lg flex items-center justify-center gap-2"
+                                    onClick={handleConfirmAttendance}
+                                    className="bg-gradient-to-r from-green-500 to-emerald-500 text-white px-8 py-3 rounded-full font-semibold hover:from-green-600 hover:to-emerald-600 transform hover:scale-105 transition-all duration-300 shadow-lg flex items-center justify-center gap-2"
                                 >
-                                    <Music className="w-5 h-5" />
-                                    {playMusic ? 'Đang phát nhạc 🎵' : 'Phát nhạc 🎵'}
+                                    <Heart className="w-5 h-5 fill-current" />
+                                    Em chắc chắn sẽ đến!
                                 </button>
                             </div>
 
                             {/* Footer */}
                             <div className="mt-8 text-center">
                                 <p className="text-gray-600 text-sm">
-                                    Được tạo với ❤️ từ người yêu em
+                                    Độc quyền bởi <b>Đỗ Quốc Thành</b>
                                 </p>
                                 <div className="flex justify-center gap-2 mt-4">
                                     <Sparkles className="w-4 h-4 text-yellow-500 animate-sparkle" />
@@ -215,6 +280,14 @@ export default function BirthdayInvitation() {
                                     </p>
                                     <Sparkles className="w-4 h-4 text-yellow-500 animate-sparkle" style={{ animationDelay: '1s' }} />
                                 </div>
+
+                                {/* Back button */}
+                                <button
+                                    onClick={() => setShowContent(false)}
+                                    className="mt-6 text-gray-500 hover:text-pink-500 transition-colors duration-300 text-sm font-medium flex items-center justify-center gap-2 mx-auto"
+                                >
+                                    ← Quay về trang đầu
+                                </button>
                             </div>
                         </div>
                     </div>
