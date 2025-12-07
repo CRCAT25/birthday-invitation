@@ -42,7 +42,7 @@ export default function BirthdayInvitation() {
         date: "Đêm 7/12/2025 rạng sáng 8/12/2025",
         time: "23:00",
         location: "Nhà hàng Hadilao",
-        address: "Đường Phạm Văn Đồng, Hiệp Bình Chánh, Thủ Đức, Thành phố Hồ Chí Minh",
+        address: "Vincom Phan Văn Trị, 12 Đ. Phan Văn Trị, Phường 7, Gò Vấp, Thành phố Hồ Chí Minh",
         message: "Một năm nữa lại đến, một năm nữa em lại thêm xinh đẹp và đáng yêu hơn. Anh muốn được ở bên em trong dịp đặc biệt này và mang đến cho em những kỷ niệm tuyệt vời nhất!",
         promise: "Anh hứa sẽ đưa đón em cẩn thận, chăm sóc em chu đáo, và đảm bảo em sẽ có một ngày sinh nhật vui vẻ và đáng nhớ nhất. Em chỉ cần mang theo nụ cười xinh đẹp là đủ! 💝"
     };
